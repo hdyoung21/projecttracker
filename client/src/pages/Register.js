@@ -1,83 +1,82 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Alert, FormRow } from '../components';
+<<<<<<< HEAD
+=======
+import { useAppContext } from '../context/appContext';
+>>>>>>> 38ab5718154a4ac701f606ca85d5c54800345dfe
 
 const initialState = {
-    firstName: '',
-    lastName: '',
-    username: '',
+    name: '',
     email: '',
     password: '',
-    ghLink: '',
-};
-
+    isMember: true,
+    };
 
 const Register = () => {
     const navigate = useNavigate();
     const [values, setValues] = useState(initialState);
-    // const [values, setValues] = useState({firstName: '',
-    // lastName: '',
-    // username: '',
-    // email: '',
-    // password: '',
-    // ghLink: ''}); 
     // global state and useNavigate
-
-    const handleChange = (e) => {console.log(e.target)};
-    const onSubmit = (e) => {e.preventDefault();
-        const { firstName, lastName, username, email, password, ghLink, labelText, handleChange, value } = values;
-        return;
+    const { user, isLoading, showAlert, displayAlert } = useAppContext();
+    const toggleMember = () => {
+        setValues({ ...values, isMember: !values.isMember });
+    };
+    const handleChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+    };
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const { name, email, password, isMember } = values;
+        if(!email || !password || (!isMember && !name)) {
+            displayAlert();
+            return;
         }
+        console.log(values);
+    };
     return (
     <div>
         <form onSubmit={onSubmit}>
+<<<<<<< HEAD
             <h3>Login</h3>
             {values.showAlert && <Alert />}
+=======
+            <h3>{values.isMember ? "Login" : "Register"}</h3>
+            {showAlert && <Alert />}
+>>>>>>> 38ab5718154a4ac701f606ca85d5c54800345dfe
             {/* first name input */}
-            <div>
-                <label>First Name</label>
+            {!values.isMember && (
                 <FormRow 
                     type="text" 
-                    name='firstName'
-                    value={values.firstName} 
+                    name='name'
+                    value={values.name} 
                     handleChange={handleChange}
                 />
-            </div>
-            {/* last name input */}
-            <div>
-                <label>Last Name</label>
-                <FormRow 
-                    type="text" 
-                    name='lastName'
-                    value={values.lastName} 
-                    handleChange={handleChange}
-                />
-            </div>
-            {/* email input */}
-            <div>
-                <label>Email Address</label>
+                )}
+                
+                {/* email input */}
                 <FormRow 
                     type='email' 
                     name='email'
                     value={values.email} 
                     handleChange={handleChange}
                 />
-            </div>
             {/* password input */}
-            <div>
-                <label>Password</label>
                 <FormRow
                     type='password' 
                     name='password'
                     value={values.password} 
                     handleChange={handleChange}
                 />
-            </div>
-            <button type="submit">Submit</button>
+           
+            <button type="submit" disabled={isLoading}>Submit</button>
+            <p>
+                {values.isMember ? 'I do not have an account yet.' : 'Already have an account?'}
+                <button type="button" onClick={toggleMember}>{values.isMember ? 'Register' : 'Login'}</button>
+            </p>
         </form>        
     </div>
-    )
-}
+    );
+};
 
 export default Register;
