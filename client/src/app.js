@@ -1,13 +1,20 @@
-<<<<<<< HEAD
-=======
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Register, Landing, Error, Dashboard } from './pages'
 
 
 function App() {
-  return <h1>Project Tracker</h1>
-  
-
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Dashboard />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/landing' element={<Landing />} />
+        <Route path='*' element={<Error />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;
->>>>>>> 8fce2b16fcd1db70241f465d94105a285d3c270a
+
