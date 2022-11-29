@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 const UserSchema = new mongoose.Schema({
-    firstName: {
+    name: {
         type: String, 
         required: [true, 'Please provide your first name.'], 
         minlength: 3, 
