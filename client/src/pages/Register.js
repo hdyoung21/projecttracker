@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import FormRow from '../components/FormRow';
+import { Alert, FormRow } from '../components';
 
 const initialState = {
     firstName: '',
@@ -33,6 +33,7 @@ const Register = () => {
     <div>
         <form onSubmit={onSubmit}>
             <h3>Login</h3>
+            {values.showAlert && <Alert />}
             {/* first name input */}
             <div>
                 <label>First Name</label>
