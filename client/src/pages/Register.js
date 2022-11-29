@@ -2,7 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Alert, FormRow } from '../components';
+<<<<<<< HEAD
+=======
 import { useAppContext } from '../context/appContext';
+>>>>>>> 38ab5718154a4ac701f606ca85d5c54800345dfe
 
 const initialState = {
     name: '',
@@ -34,8 +37,13 @@ const Register = () => {
     return (
     <div>
         <form onSubmit={onSubmit}>
+<<<<<<< HEAD
+            <h3>Login</h3>
+            {values.showAlert && <Alert />}
+=======
             <h3>{values.isMember ? "Login" : "Register"}</h3>
             {showAlert && <Alert />}
+>>>>>>> 38ab5718154a4ac701f606ca85d5c54800345dfe
             {/* first name input */}
             {!values.isMember && (
                 <FormRow 
