@@ -70,3 +70,17 @@ const updateUser = async (req, res) => {
 
     res.status(StatusCodes.OK).json({ user, githubUser: user.githubUser });
 }
+
+const getCurrentUser = async (req, res) => {
+    const user = await User.findOne({ _id: req.user.userId});
+    res.status(StatusCodes.OK).json({ user, githubUser: user.githubUser});
+}
+
+const logout = async (req, res) => {
+    res.cookie('token', 'logout', {
+        httpOnly: true, 
+        expires: new Date(Date.now() + 1000),
+    });
+};
+
+export {register, login, updateUser, getCurrentUser, logout };
