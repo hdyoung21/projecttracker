@@ -13,3 +13,7 @@ const createProject = async (req, res) => {
     const project = await Project.create(req.body);
     res.status(StatusCodes.CREATED).json({ project });
 };
+
+const getAllProjects = async (req, res) => {
+    const {}
+}
