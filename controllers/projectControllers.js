@@ -73,10 +73,27 @@ const updateProject = async (req, res) => {
     if (!projectName || !company) {
         throw new BadRequestError('Please provide all values.');
     }
-    const project = await Project.findOne({ _id: jobId });
+    const project = await Project.findOne({ _id: projectId });
     
     if (!project) {
-        throw new NotFoundError(`No job with id: ${jobId}`)
+        throw new NotFoundError(`No project with id: ${projectId}`)
+    }
+
+    checkPermissions(req.user, project.createdBy);
+
+    const updatedProject = await Project.findOneAndUpdate({ _id: projectId }, req.body, {
+        new: true, 
+        runValidators: true,
+    })
+};
+
+const deleteProject = async (req, res) => {
+    const { id: projectId } = req.params;
+
+    const project = await Project.findOne({ _id: projectId });
+
+    if (!project) {
+        throw new NotFoundError(`No project with id: ${projectId}`)
     }
 
     checkPermissions(req.user, project.createdBy);
@@ -84,7 +101,7 @@ const updateProject = async (req, res) => {
     await project.remove();
 
     res.status(StatusCodes.OK).json({ msg: 'Success!! Project Removed.'})
-};
+}
 
 const showStats = async (req, res) => {
     let stats = await Project.aggregate([
@@ -98,9 +115,36 @@ const showStats = async (req, res) => {
     }, {});
 
     const defaultStats = {
-        To-Do: stats.todo || 0,
-        In-Progress: stats.inprogress || 0, 
-        Finished: stats.finished || 0,
+        todo: stats.todo || 0,
+        inprogress: stats.inprogress || 0, 
+        finished: stats.finished || 0,
     };
-    
-}
+
+    let monthlyApplications = await Project.aggregate([
+        { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId)}},
+        { $group: {
+            _id: { year: { $year: '$createdAt'}, month: { $month: '$createdAt'}},
+            count: { $sum: 1}, 
+        },
+    },
+    { $sort: { '_id.year': -1, '_id.month': -1}},
+    { $limit: 6},        
+    ]);
+    monthlyApplications = monthlyApplications
+    .map((item) => {
+        const {
+            _id: { year, month }, 
+            count, 
+        } = item; 
+        const date = moment ()
+        .month(month -1)
+        .year(year)
+        .format('MMM Y');
+        return {date, count};
+    })
+    .reverse();
+
+    res.status(StatusCodes.OK).json({defaultStats, monthlyApplications});
+};
+
+export { createProject, deleteProject, getAllProjects, updateProject, showStats };
