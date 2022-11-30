@@ -14,7 +14,7 @@ import {
     updateUser, 
     getCurrentUser, 
     logout,
-} from '../controllers/authController ';
+} from '../controllers/authController.js ';
 
 import authenticateUser from '../middleware/auth.js';
 import testUser from '../middleware/testUser';

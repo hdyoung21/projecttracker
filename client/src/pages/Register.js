@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Alert, FormRow } from '../components';
 import { useAppContext } from '../context/appContext';
-import { REGISTER_USER_SUCCESS } from '../context/action';
 
 const initialState = {
     name: '',
@@ -30,20 +29,13 @@ const Register = () => {
             displayAlert();
             return;
         }
-        const currentUser = {name, email, password};
-        if(isMember){
-            console.log('Already a member');
-        }
-        else {
-            registerUser(currentUser)
-        }
-        
+        console.log(values);
     };
     return (
     <div>
         <form onSubmit={onSubmit}>
-            <h3>{values.isMember ? "Login" : "Register"}</h3>
-            {showAlert && <Alert />}
+            <h3>Login</h3>
+            {values.showAlert && <Alert />}
             {/* first name input */}
             {!values.isMember && (
                 <FormRow 

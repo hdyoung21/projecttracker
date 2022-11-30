@@ -6,8 +6,10 @@ import {
     CLEAR_ALERT, 
     REGISTER_USER_BEGIN, 
     REGISTER_USER_SUCCESS, 
-    REGISTER_USER_ERROR 
+    REGISTER_USER_ERROR, 
+    SET_EDIT_PROJECT
 } from "./action";
+import { application } from "express";
 
 
 const initialState = {
@@ -56,6 +58,12 @@ const AppProvider = ({ children }) => {
         console.log(currentUser);
     }
 
+
+    //Delete Projects
+    if (application.type === SET_EDIT_PROJECT) {
+        const project = state.project.find((project) => project._id === application.payload.id)
+        const { _id, projectName, repoName, codingLanguage, company, createdBy, projectDescription, status } = project
+    }
     return (
     <AppContext.Provider 
         value={{
