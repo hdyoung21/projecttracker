@@ -9,6 +9,6 @@ const errorsMiddleware = (err, req, res, next) => {
     }
     
     res.status(defaultError.statusCode).json({ msg: err })
+}
 
-
-export default errorsMiddleware
+export default errorsMiddleware;
