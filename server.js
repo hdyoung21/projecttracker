@@ -1,17 +1,38 @@
 import express from 'express';
 const app = express();
-import dotenv from 'dotenv';
-dotenv.config();
 
-const PORT = process.env.PORT || 3001;
+import dotenv from 'dotenv'
+dotenv.config()
+import connectDB from './db/connect.js';
+import notFoundMiddleware from './middleware/notfound.js';
+import errorsMiddleware from './middleware/errors.js';
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-app.use(routes);
+notFoundMiddleware
 
-// sync sequelize models to the database, then turn on the server
+app.get('/', (req, res) => {
+    res.send('yeyeyeye')
+})
 
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
-});
+app.use(notFoundMiddleware)
+app.use(errorsMiddleware)
+const port = process.env.PORT || 3001
+
+
+
+app.listen(port, () => {
+    console.log(`server is listening on ${port}!!!`);
+})
+
+const startup = async () => {
+    try {
+        await connectDB(process.env.MONGO_URL)
+        app.listen(port, () => {
+            console.log(`server is on port ${port}!`)
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+startup()
+
