@@ -8,7 +8,8 @@ const FormRow = ({ type, name, value, handleChange, labelText}) => {
                 type={type}
                 name={name}
                 value={value} 
-                handleChange={handleChange}
+                // handleChange={handleChange} ---- I think it's suppose to be onChange={handleChange}
+                onChange={handleChange}
             />
         </div>
     )

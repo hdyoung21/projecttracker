@@ -18,8 +18,24 @@ const initialState = {
     alertText: '',
     alertType: '',
     user: null,
+    //user: user ? JSON.parse(user) : null,
     token: null,
-    githubUser: ''
+    //token: token,
+    // githubUser: ''   ---I don't think we need this here (Noelle)
+    //showSidebar: false,
+    isEditing: false, 
+    //so it can be called for the editing function later on 
+    editProject: '',
+    //for editing the project ID
+    projectName: '',
+    statusChoices: ['To-Do', 'In-Progress', 'Finished'],
+    status: 'To-Do',
+    codingLanguage: '', 
+    projectDescription: '', 
+    repoName: '', 
+    company: 'Private Project' || '',
+    //I think this will use private project as the variable if the user doesn't put one in 
+    
 }
 
 const AppContext = React.createContext();
