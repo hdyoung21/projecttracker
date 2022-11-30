@@ -6,6 +6,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='all-jobs' element={<AllJobs />} />
+        <Route path='add-jobs' element={<AddJobs />} />
+        <Route path='profile' element={<Profile />} />
         <Route path='/' element={<Dashboard />} />
         <Route path='/register' element={<Register />} />
         <Route path='/landing' element={<Landing />} />
