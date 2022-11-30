@@ -1,4 +1,10 @@
-import { DISPLAY_ALERT, CLEAR_ALERT } from "./action";
+import { 
+    DISPLAY_ALERT, 
+    CLEAR_ALERT, 
+    REGISTER_USER_BEGIN, 
+    REGISTER_USER_SUCCESS, 
+    REGISTER_USER_ERROR 
+} from "./action";
 import { initialState } from "./appContext";
 
 const reducer = (state, action) => {

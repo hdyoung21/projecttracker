@@ -1,3 +1,4 @@
+
 import {StatusCodes} from 'http-status-codes'
 
 const errorsMiddleware = (err, req, res, next) => {
@@ -8,6 +9,6 @@ const errorsMiddleware = (err, req, res, next) => {
     }
     
     res.status(defaultError.statusCode).json({ msg: err })
-}
+
 
 export default errorsMiddleware

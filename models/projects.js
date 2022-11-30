@@ -52,3 +52,15 @@ const ProjectSchema = new mongoose.Schema (
 )
 
 export default mongoose.model('Project', ProjectSchema)
+
+
+
+// {
+// 	"projectName": "Hello World", 
+// 	"status": "In-Progress",
+// 	"company": "GeorgiaTech",
+// 	"codingLanguage": "JavaScript",
+// 	"projectDescription": "Will display Hello World",
+// 	"repoName": "project3",
+	
+// }
