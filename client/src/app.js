@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Register, Landing, Error, Dashboard } from './pages'
 
@@ -14,4 +15,5 @@ function App() {
   )
 }
 
-export default App
+
+export default App;
