@@ -8,7 +8,7 @@ const errorsMiddleware = (err, req, res, next) => {
         msg: 'try again later'
     }
     
-    res.status(defaultError.statusCode).json({ msg: err })
+    res.status(defaultError.statusCode).json({ msg: err }) }
 
 
 export default errorsMiddleware
